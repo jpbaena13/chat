@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<title>Chat</title>
+		<link rel="stylesheet" href="/css/styles.css">
+	</head>
+	<body>
+		<div id="container">
+			<div id="connected"></div>
+			<div id="messages">
+			</div>
+			<form action="#">
+				<input type="text" id="message" placeholder="Escriba un mensaje">
+			</form>
+		</div>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script>
+			var socket = io.connect('http://localhost:8080');
+			var sockets = [];
+
+			var img = location.hash.substr(1) || 'male';
+			
+			$('#message').on('keypress', function(e) {
+				var msg = this.value;
+
+				if (e.which == 13) {
+					e.preventDefault();
+					this.value = ''
+					socket.emit('send', { msg: msg, img: img } )
+				}
+			});
+
+			socket.on('message', function(data) {
+				$('<div>', {Class: 'm'})
+								.append('<img src="/img/' + data.img + '.png">')
+								.append('<span>' + data.msg + '</span>')
+								.appendTo($('#messages'));
+
+				$('#messages').animate({ scrollTop: $('#messages').get(0).scrollHeight }, 500);
+			});
+			
+			// socket.on('connected', function(data) {
+			// 	// $('#connected').html('');
+			// 	console.log(data)
+			// 	data.sockets.forEach(function(s){
+			// 		// console.log(s)
+			// 		// $('<div>', {id: s.id}).appendTo($('#connected'))
+			// 	})
+			// });
+
+			// socket.on('disconnected', function(data) {
+			// 	console.log(data)
+			// })
+		</script>
+	</body>
+</html>
