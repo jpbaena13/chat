@@ -32,6 +32,7 @@ form input {
 
 .m {
 	border: thin solid #ccc;
+	margin-bottom: 5px;
 }
 
 .m img {
