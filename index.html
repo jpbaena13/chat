@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Chat</title>
-		<link rel="stylesheet" href="/css/styles.css">
+		<link rel="stylesheet" href="public/css/styles.css">
 	</head>
 	<body>
 		<div id="container">
@@ -15,9 +15,9 @@
 			</form>
 		</div>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript" src="http://lantia-realtime.azurewebsites.net/socket.io/socket.io.js"></script>
 		<script>
-			var socket = io.connect('http://localhost:8080');
+			var socket = io.connect('http://chatlantia.azurewebsites.net');
 			var sockets = [];
 
 			var img = location.hash.substr(1) || 'male';
@@ -34,7 +34,7 @@
 
 			socket.on('message', function(data) {
 				$('<div>', {Class: 'm'})
-								.append('<img src="/img/' + data.img + '.png">')
+								.append('<img src="public/img/' + data.img + '.png">')
 								.append('<span>' + data.msg + '</span>')
 								.appendTo($('#messages'));
 

@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var port = 8080;
+var port = 80;
 
 app.set('views', __dirname + '/tpl');
 app.set('view engine', 'jade');
